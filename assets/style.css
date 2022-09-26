@@ -1,0 +1,479 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body { 
+    background-color: #F6F6F6;
+}
+
+nav {
+    height: 50px;
+    width: 100%;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    display: flex;
+    align-items: center;
+    padding: 35px;
+    position: relative;
+}
+
+#nav-user-icon {
+    margin-right: 6px;
+}
+
+.login_logo {
+    text-align: center;
+    margin-top: 10vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover, .nav-link:hover, .regbtn:hover {
+    color: #C63F18;
+}
+
+.nav-link, .regbtn {
+    margin-left: 5px;
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #C63F18;
+}
+
+.ts {
+    margin-left: auto;
+}
+
+.homepage {
+    height: 640px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position:center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('');
+}
+
+/*login module*/
+
+.login_box {
+    padding: 50px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border:1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    margin-bottom: 10px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.login_container .login_label {
+  text-align: left;
+}
+
+.register_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-top: 30px; */
+    margin-bottom: 30px;
+}
+
+.reg-div {
+    text-align: right;
+}
+
+
+
+.col {
+    display: row;
+}
+
+
+
+
+/* .main_container {
+    background-image: url('pictures/.png');
+    background-size: cover;
+    background-position:center center;
+    height: 100%;
+} */
+
+.login_header {
+    color: #C63F18;
+    font-size: 40px;
+    font-weight: 600;
+    text-align: left;
+}
+
+label {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+input[type=text], input[type=password] {
+    width: 420px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid #C63F18;
+    padding: 10px;
+}
+
+textarea {
+    width: 420px;
+    height: 128px;
+    border-radius: 10px;
+    border: 1px solid #C63F18;
+    padding: 10px;
+    resize: none;
+}
+
+.upload-btn {
+    background-color: white;
+    border: 1px solid #C63F18;
+    color: #C63F18;
+    padding: 0.6rem;
+    border-radius: 1rem;
+    cursor: pointer; 
+    margin-top: 0;
+}
+
+#file-chosen {
+    color: #777777;
+    padding: 0.5rem;
+}
+
+#roles {
+    width: 418px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid #C63F18;
+    padding: 10px;
+}
+
+
+
+.all_btn {
+    width: 300px;
+    height: 50px;
+    background-color: #C63F18;
+    border: none;
+    border-radius: 20px;
+    margin-top: 30px;
+    font-weight: 800;
+    color: white;
+}
+
+.account_notice {
+    text-align: center;
+}
+
+#activebtn {color: #C63F18;}
+
+.dropdown {
+    position: relative;
+}
+
+.list {
+    position: absolute;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 0.3s;
+    width: 300px;
+}
+
+.newList {
+    transform: scaleY(1);
+    transition: 0.3s;
+}
+
+.account_notice p {
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+/*reservation module*/
+
+.header {
+    text-align:center;
+    color: #C63F18;
+    margin-top: 25px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+
+
+.item-row {
+    display: flex;
+    align-items: center;
+    margin: 50px 250px 25px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.item-pic {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.item-pic img {
+    height: 200px;
+    width: auto;
+}
+
+
+#reserve_btn {
+    margin-right: 30px;
+    margin-top: 0;
+    width: 250px;
+}
+
+
+/*Employee masterlist*/
+.user-container {
+    padding: 5rem;
+}
+
+.emp-name-bold {
+    font-weight: 700;
+}
+
+th {
+    color: #777777;
+    border: none;
+}
+
+.page-title, .user-count, .device-count {
+    color: #C63F18;
+}
+
+.emp-pic, .device-pic {
+    height: 120px;
+    border-radius: 20px;
+}
+
+td i {
+    background-color: #437FC7;
+    padding: 15px;
+    border-radius: 15px;
+    color: white;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#edit-btn {
+    background-color: #40A344;
+}
+
+/*search style*/
+
+.searchContainer {
+    padding: 1rem;
+    background-color: #F3E0DA;
+    border-radius: 15px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.search-box .search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+  .search-box .searchTerm {
+    width: 100%;
+    height: 60px;
+    border: none;
+    border-right: none;
+    padding: 15px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #777777;
+  }
+  .search-box .searchTerm:focus{
+    color: #C63F18;
+  }
+  .search-box .searchButton {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #C63F18;
+    background: #C63F18;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  .search-box .searchButton i{
+    color: white;
+  }
+
+  .searchFilters {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  /* .searchContainer label {
+    margin-right: 20px;
+    display: inline-block;
+  } */
+
+  .filterGroup {
+    border: none;
+    border-radius: 15px;
+    margin-right: 20px;
+    width: 200px;
+    height: 50px;
+    color: #777777;
+    display: inline-block;
+  }
+
+  .searchFilters select {
+    padding: 5px;
+  }
+
+
+  /*view employee & device css*/
+
+  .view-emp-container {
+    padding: 5rem;
+  }
+
+
+
+  .remove-btn-div {
+    text-align: right;
+  }
+
+  .remove-btn {
+    padding: 10px;
+    color: white;
+    background-color: #E30000;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+
+  #remove-icon {
+    margin-right: 10px;
+  }
+
+  .detail-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 2rem;
+  }
+
+  .detail-header {
+    text-align: center;
+  }
+
+  .detail-table, .transacted {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .detail-table th, .detail-table td, .transacted th, .transacted td {
+    padding: 10px;
+  }
+
+  .detail-table td {
+    background-color: #F3E0DA;
+  }
+
+  .transacted {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 1rem;
+  }
+
+  .transacted td {
+    background-color: #F3E0DA;
+  }
+
+  .spec-role-flex {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  /*edit details*/
+
+  #cancel-btn {
+    background-color: #ffffff;
+    color: #C63F18;
+    border: 1px solid #C63F18;
+  }
+
+  .save-cancel-div {
+    text-align: center;
+  }
+
+
+  /*VIEW PROFILE*/
+
+  .profile-container {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.prof-pic {
+  height: 150px;
+  border-radius: 15px;
+}
+
+.profile-card, .resetpw-card {
+    background-color: #ffffff;
+    width: 500px;
+    text-align: center;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.logout-btn-div {
+  margin-top: 15px;
+}
+
+.resetpw-card {
+  margin-top: 10px;
+}
+
+#logout-btn {
+  border: 1px solid #C63F18;
+  border-radius: 15px;
+  background-color: #ffffff;
+  color: #C63F18;
+  padding: 10px;
+}
+
+#reset-btn {
+  border: 1px solid;
+  border-radius: 15px;
+  background-color: #C63F18;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.btn-div {
+  margin-top: 15px;
+}
