@@ -478,14 +478,14 @@ class Admin extends CI_Controller
     }
 
 
-    //Reservation - Borrowable Device List
-    public function devList_view() 
-    {
+    //Transaction Logs
+    public function transaction_logs() {
+
         $page_config = array(
-            'base_url' => site_url('Admin/devList_view'),
-            'total_rows' => $this->Admin_model->borrowableDev_count(),
+            'base_url' => site_url('Admin/transaction_logs'),
+            'total_rows' => $this->Admin_model->transaction_count(),
             'num_links' => 3,
-            'per_page' => 5,
+            'per_page' => 10,
 
             'full_tag_open' => '<div class="d-flex justify-content-center"><ul class="pagination">',
             'full_tag_close' => '</ul></div>',
@@ -513,137 +513,29 @@ class Admin extends CI_Controller
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $this->pagination->initialize($page_config);
 
-        $data['title'] = 'Cablir8 - Borrowable Device Masterlist';
-        $data['total'] = $this->Admin_model->borrowableDev_count();
-        $data['stocks'] = $this->Admin_model->get_devModel($page_config['per_page'], $page, NULL);
+        $data['title'] = 'Calibr8 - Transaction Logs';
+        $data['transactions'] = $this->Admin_model->transaction_table($page_config['per_page'], $page);
         $this->load->view('include/admin_header', $data);
-        $this->load->view('admin/admin_borrowDev_view');
+        $this->load->view('admin/admin_transaction_logs_view');
         $this->load->view('include/footer');
     }
 
-    public function search_BorrowableDev()
-    { //Temporary Search Function
-        $search = ($this->input->post("searchTerm")) ? $this->input->post("searchTerm") : "NIL";
-        $search = ($this->uri->segment(3)) ? $this->uri->segment(3) : $search;
-
-        $page_config = array(
-            'base_url' => site_url('Admin/search_BorrowableDev/$search'),
-            'total_rows' => $this->Admin_model->count_devModel($search),
-            'num_links' => 3,
-            'per_page' => 5,
-
-            'full_tag_open' => '<div class="d-flex justify-content-center"><ul class="pagination">',
-            'full_tag_close' => '</ul></div>',
-
-            'first_link' => FALSE,
-            'last_link' => FALSE,
-
-            'next_link' => '&rsaquo;',
-            'next_tag_open' => '<li class="page-item">',
-            'next_tag_close' => '</li>',
-
-            'prev_link' => '&lsaquo;',
-            'prev_tag_open' => '<li class="page-item">',
-            'prev_tag_close' => '</li>',
-
-            'cur_tag_open' => '<li class="page-item active"><span class="page-link">',
-            'cur_tag_close' => '</span></li>',
-
-            'num_tag_open' => '<li class="page-item">',
-            'num_tag_close' => '</li>',
-
-            'attributes' => ['class' => 'page-link']
-        );
-
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-        $this->pagination->initialize($page_config);
-
-        $data['title'] = 'Calibr8 - Borrowable Device Masterlist';
-        $data['stocks'] = $this->Admin_model->get_devModel($page_config['per_page'], $page, $search);
-        $data['total'] = $this->Admin_model->borrowableDev_count();
-        $this->load->view('include/admin_header', $data);
-        $this->load->view('admin/admin_borrowDev_view');
-        $this->load->view('include/footer');
-    }
-
-    public function reserveDev($dev_name)
-    {
-
-        $data['title'] = 'Calibr8 - Borrow This Device';
-        $dev_name = str_replace('%20', ' ', $dev_name);
-        $data['stocks'] = $this->Admin_model->reserveDev($dev_name);
-        $id = $this->session->userdata('id');
-        $data['admin'] = $this->Admin_model->get_emp_row($id);
-        $this->load->view('include/admin_header', $data);
-        $this->load->view('admin/admin_reservation_view', $data);
-        $this->load->view('include/footer');
-    }
-
-    public function set_reserveDate()
-    {
-
-        $this->form_validation->set_rules('reservation_date', 'Reservation Date', 'required|callback_validate_reserveDate', array(
-            'required' => 'Please set a %s'
-        ));
-
-        if ($this->form_validation->run() == FALSE) {
-            $dev_name = $this->input->post('dev-name');
-            $device_name = str_replace('%20', ' ', $dev_name);
-            $this->reserveDev($device_name);
-        } else {
-            $borrow = $this->input->post('borrow-device');
-
-            if (isset($borrow)) {
-                $dev_name = $this->input->post('dev-name');
-                $device_name = str_replace('%20', ' ', $dev_name);
-                $unique_num = $this->input->post('unique-num');
-                $reservation_date = $this->input->post('reservation_date');
-
-                //Reserved Date Info
-                $info = array(
-                    'transaction_status' => 'Pending',
-                    'borrower' => $this->input->post('borrower'),
-                    'borrowedDev_id' => $this->input->post('unique-num'),
-                    'borrowedDev_name' => $dev_name,
-                    'request_time' => date("Y-m-d H:i:s", strtotime('now')),
-                    'decision_time' => date("Y-m-d H:i:s", strtotime($reservation_date)),
-                    'return_date' => date("Y-m-d H:i:s", strtotime($reservation_date. '+2 months'))
-                );
-
-                //Device Status Info
-                $status_info = array(
-                    'cur_status' => 'Reserved',
-                    'prev_status' => 'Available'
-
-                );
-
-                $this->Admin_model->set_reserveDate($info, $status_info, $unique_num);
-                $success = "Reserve Date is set successfully. Please wait for approval.";
-                $this->session->set_flashdata('success', $success);
-                redirect('Admin/devList_view');
-            }
-        }
-
-        $cancel = $this->input->post('cancel-button');
-
-        if (isset($cancel)) {
-            redirect('Admin/devList_view');
-        }
-    }
-
-    public function validate_reserveDate($reservation_date) {
-
-        $startDate = date("Y-m-d H:i:s", strtotime($reservation_date));
-        $currDate = date("Y-m-d H:i:s");
-
-        if($startDate < $currDate) {
-            $this->form_validation->set_message('validate_reserveDate', 'Please enter a valid date.');
-            return FALSE;
-        }
-
-        return TRUE;
-    }
     
+    public function system_logs() {
+
+        $data['title'] = 'Calibr8 - System Logs';
+        $this->load->view('include/admin_header', $data);
+        $this->load->view('admin/admin_sysLogs_view');
+        $this->load->view('include/footer');
+    }
+
+    public function generate_reports() {
+
+        $data['title'] = 'Calibr8 - Generate Reports';
+        $this->load->view('include/admin_header', $data);
+        $this->load->view('admin/admin_generate_reports');
+        $this->load->view('include/footer');
+    }
 
 
 
@@ -691,6 +583,14 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('init-pass', 'Initial Password', 'required|min_length[8]', array(
             'required' => '%s is required.',
             'min_length' => '%s should have a minimum of 8 characters'
+        ));
+
+        $this->form_validation->set_rules('rfid-num', 'RFID Number', 'required', array(
+            'required' => '%s is required.',
+        ));
+
+        $this->form_validation->set_rules('tap-rfid', 'Tap your RFID', 'required', array(
+            'required' => 'Please tap your RFID card.',
         ));
 
         if ($this->upload->do_upload('employee_image') == FALSE) {
@@ -769,6 +669,14 @@ class Admin extends CI_Controller
         ));
         $this->form_validation->set_rules('specs', 'Specifications', 'required', array(
             'required' => '%s is required.',
+        ));
+
+        $this->form_validation->set_rules('rfid-num', 'RFID Number', 'required', array(
+            'required' => '%s is required.',
+        ));
+
+        $this->form_validation->set_rules('tap-rfid', 'Tap your RFID', 'required', array(
+            'required' => 'Please tap your RFID card.',
         ));
 
         if ($this->upload->do_upload('device_image') == FALSE) {

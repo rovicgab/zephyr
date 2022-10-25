@@ -195,6 +195,18 @@ class Admin_model extends CI_Model
         $this->db->update('devices', $status_info, ['unique_num' => $borrowedDev_id]);
     }
 
+    
+    //Transaction Logs
+    public function transaction_table($limit, $start) {
+        $this->db->limit($limit, $start);
+        $this->db->order_by('transaction_id', 'DESC');
+        return $this->db->get('transaction')->result();
+    }
+
+    public function transaction_count() {
+        return $this->db->count_all('transaction');
+    }
+
 
 
     //Reservation - Borrowable Device List

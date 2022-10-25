@@ -12,14 +12,24 @@ body {
 }
 
 nav {
-    height: 50px;
+    height: 80px;
     width: 100%;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-    display: flex;
-    align-items: center;
-    padding: 35px;
-    position: relative;
 }
+
+nav a {
+  color: black !important;
+}
+
+nav a:hover {
+  color: #C63F18 !important;
+}
+
+/* 
+#navbarNavDropdown{
+  background-color: #777777;
+} */
+
 
 #nav-user-icon {
     margin-right: 6px;
@@ -181,10 +191,10 @@ textarea {
 }
 
 #activebtn {color: #C63F18;}
-
+/* 
 .dropdown {
     position: relative;
-}
+} */
 
 .list {
     position: absolute;

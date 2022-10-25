@@ -1,12 +1,12 @@
 <div class="user-container">
 
-    <h1 class="page-title"><b>View Live System Logs</b></h1>
+    <h1 class="page-title"><b>System Logs</b></h1>
         
 
     <table class="table">
         <thead>
             <tr class="user-details">
-                <th scope="col">Transactions</th>
+                <th scope="col">Records</th>
                 <th scope="col">Timestamp</th>            
             </tr>
         </thead>
