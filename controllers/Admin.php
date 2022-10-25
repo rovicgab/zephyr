@@ -28,7 +28,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Calibr8 - Admin Dashboard';
         $data['dashboard_data'] = $this->Admin_model->admin_dashboard();
         $this->load->view('include/admin_header', $data);
-        $this->load->view('admin/admin_dashboard_view', $data);
+        $this->load->view('admin_dashboard_view', $data);
         $this->load->view('include/footer');
     }
 
