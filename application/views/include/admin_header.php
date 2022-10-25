@@ -60,7 +60,7 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="prof-nav">
                     <li><a class="dropdown-item" href="<?= site_url('Admin/profile_view') ?>">View My Profile</a></li>
-                    <li><a class="dropdown-item" href="">Logout</a></li>
+                    <li><a class="dropdown-item" href="<?= site_url('Login/logout') ?>">Logout</a></li>
                 </ul>
             </ul>
             </div>

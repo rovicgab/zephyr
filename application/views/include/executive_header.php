@@ -13,13 +13,32 @@
 
 <body>
 
-<nav>
-    <div class="logo"><img src="<?= base_url('./assets/pictures/calibr8logo.jpg'); ?>" alt="Calibr8 Logo" height="30px"></div>
-    <a class="nav-link" href="<?= site_url('Executive/emp_masterlist_view') ?>">View</a>
-    <a class="nav-link" href="<?= site_url('Executive/devList_view') ?>">Reservation</a>
-    <a class="nav-link" href="<?= site_url('Executive/dev_masterlist_view') ?>">Device Masterlist</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><a class="navbar-brand" href="#"><div class="logo"><img src="<?= base_url('./assets/pictures/calibr8logo.png'); ?>" alt="Calibr8 Logo" height="30px"></div></a></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="<?= site_url('Executive/devList_view') ?>">Reservation</a>
+            </li>
+            
+            <li class="nav-item">
+            <a class="nav-link" href="<?= site_url('Executive/dev_masterlist_view') ?>">Device Masterlist</a>
+            </li>
 
-    <a href="<?= site_url('Executive') ?>" class="ts"><i class="far fa-user" id="nav-user-icon"></i>Executive</a>
-
-
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            My Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="prof-nav">
+                <li><a class="dropdown-item" href="<?= site_url('Executive') ?>">View My Profile</a></li>
+                <li><a class="dropdown-item" href="<?= site_url('Login/logout') ?>">Logout</a></li>
+            </ul>
+        </ul>
+        </div>
+    
+    </div>
 </nav>
