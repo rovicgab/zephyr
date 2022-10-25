@@ -385,6 +385,10 @@ td i {
     margin-bottom: 10px;
   }
 
+  .remove-btn:hover {
+    color: white;
+  }
+
   #remove-icon {
     margin-right: 10px;
   }
@@ -456,6 +460,13 @@ td i {
   }
 
   /*edit details*/
+
+  .back-btn {
+    margin-bottom: 30px;
+    border: none;
+    color: #c63f18;
+    background-color: transparent;
+  }
 
   #cancel-btn {
     background-color: #ffffff;

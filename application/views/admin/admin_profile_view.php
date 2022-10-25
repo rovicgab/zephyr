@@ -1,7 +1,8 @@
 
-<h1 class="page-title"><b>My Profile</b></h1>
 
-<div class="p-main-container">
+
+<div class="user-container">
+<h1 class="page-title"><b>My Profile</b></h1>
     <div class="profile-container">
         <div class="profile-card">
             <div class="profile-deets">
