@@ -34,6 +34,7 @@
                 $JwtSecretKey = "DEVIN-Calibr8";
                 $data = array(
                     'id' => $account->id,
+                    'employee_id' => $account->emp_id,
                     'name' => $account->emp_name,
                     'email' => $account->emp_email,
                     'superior' => $account->superior,
