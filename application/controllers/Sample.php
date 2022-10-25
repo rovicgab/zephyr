@@ -173,6 +173,8 @@
         }
 
         public function display_device() {
+            header('Content-Type: application/json');
+
             $this->load->model('Sample_model');
             $response = $this->Sample_model->display_dev();
             echo json_encode($response);
