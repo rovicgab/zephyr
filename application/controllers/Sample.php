@@ -176,7 +176,7 @@
             header('Content-Type: application/json');
             
             $this->load->model('Sample_model');
-            $response = $this->Sample_model->display_dev();
+            $response = $this->Sample_model->display_emp();
             echo json_encode($response);
 
         }
