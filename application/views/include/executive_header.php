@@ -25,8 +25,14 @@
             <a class="nav-link active" aria-current="page" href="<?= site_url('Executive/devList_view') ?>">Reservation</a>
             </li>
             
-            <li class="nav-item">
-            <a class="nav-link" href="<?= site_url('Executive/dev_masterlist_view') ?>">Device Masterlist</a>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            View
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="prof-nav">
+                <li><a class="dropdown-item" href="<?= site_url('Executive/emp_masterlist_view') ?>">Employee Masterlist</a></li>
+                <li><a class="dropdown-item" href="<?= site_url('Executive/dev_masterlist_view') ?>">Device Masterlist</a></li>
+            </ul>
             </li>
 
             <li class="nav-item dropdown">
@@ -37,6 +43,7 @@
                 <li><a class="dropdown-item" href="<?= site_url('Executive') ?>">View My Profile</a></li>
                 <li><a class="dropdown-item" href="<?= site_url('Login/logout') ?>">Logout</a></li>
             </ul>
+            </li>
         </ul>
         </div>
     
