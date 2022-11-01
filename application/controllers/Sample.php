@@ -5,7 +5,7 @@
     
             $this->load->helper(['form', 'url', 'string']);
             $this->load->library(['form_validation', 'session', 'pagination',]);
-            $this->load->model('Sample_model');
+            $this->load->model(['Sample_model', 'Employee_model']);
         }
 
         public function index() {
@@ -50,53 +50,6 @@
                 echo json_encode(['error' => 'Invalid username/password']);
             }
 
-            // if(isset($submit)) {
-            //     $email = $this->input->post('email');
-            //     $password = $this->input->post('password');
-    
-            //     $this->load->model('Login_model');
-            //     $account = $this->Login_model->login($email, $password);
-    
-            //     if(isset($account)) {
-            //         if($account->emp_role == 'administrator') {
-            //             $sess_data = array(
-            //                 'id' => $account->id,
-            //                 'role' => $account->emp_role,
-            //                 'logged_in' => TRUE
-            //             );
-    
-            //             // $this->session->set_userdata($sess_data);
-            //             // redirect('Admin');
-            //         }
-    
-            //         // FOR EXECUTIVE
-            //         // if($account->emp_role == 'executive') {
-            //         //     $sess_data = array(
-            //         //         'id' => $account->id,
-            //         //         'role' => $account->emp_role,
-            //         //         'logged_in' => TRUE
-            //         //     );
-    
-            //         //     $this->session->set_userdata($sess_data);
-            //         //     redirect('');
-            //         // }
-    
-            //         if($account->emp_role == 'employee') {
-            //             $sess_data = array(
-            //                 'id' => $account->id,
-            //                 'role' => $account->emp_role,
-            //                 'logged_in' => TRUE
-            //             );
-    
-            //             // $this->session->set_userdata($sess_data);
-            //             // redirect('Employee');
-            //         }
-            //     }
-    
-            //     // $error = 'Invalid username or password';
-            //     // $this->session->set_flashdata('error', $error);
-            //     // redirect('Login');
-            // }
         }
 
         public function token() { //JWT Token
@@ -155,10 +108,6 @@
 
             }
 
-
-            // $this->load->model('Sample_model');
-            // $response = $this->Sample_model->display_emp();
-            // echo json_encode($response);
         }
 
         public function display_dev() {
@@ -172,21 +121,70 @@
             }
         }
 
-        public function display_employee() {
+
+        public function set_reserveDate() {
             header('Content-Type: application/json');
+            $token = $this->decode_token();
             
-            $this->load->model('Sample_model');
-            $response = $this->Sample_model->display_emp();
-            echo json_encode($response);
+            if (isset($token)) {
 
+                try {
+                    $this->form_validation->set_rules('reservation_date', 'Reservation Date', 'required|callback_validate_reserveDate', array(
+                        'required' => 'Please set a %s'
+                    ));
+                    
+        
+                    if ($this->form_validation->run() == FALSE) {
+                        throw new \Exception('Please enter a valid date');
+    
+                    } else {
+                        $dev_name = $this->input->post('dev-name');
+                        $device_name = str_replace('%20', ' ', $dev_name);
+                        $unique_num = $this->input->post('unique-num');
+                        $reservation_date = $this->input->post('reservation_date');
+                        
+                        //Reserved Date Info
+                        $info = array(
+                            'transaction_status' => 'Pending',
+                            'borrower' => $this->input->post('borrower'),
+                            'borrowedDev_id' => $this->input->post('unique-num'),
+                            'borrowedDev_name' => $dev_name,
+                            'request_time' => date("Y-m-d H:i:s", strtotime('now')),
+                            'decision_time' => date("Y-m-d H:i:s", strtotime($reservation_date)),
+                            'return_date' => date("Y-m-d H:i:s", strtotime($reservation_date. '+2 months'))
+                        );
+    
+                        //Device Status Info
+                        $status_info = array(
+                            'cur_status' => 'Reserved',
+                            'prev_status' => 'Available'
+                        );
+    
+                        $this->Employee_model->set_reserveDate($info, $status_info, $unique_num);
+    
+                        echo json_encode(['message' => TRUE ]);
+    
+                    }
+
+                } catch(\Exception $error) {
+                    echo json_encode(['message' => $error->getMessage()]);
+                }
+            }
+    
         }
 
-        public function display_device() {
-            header('Content-Type: application/json');
+        public function validate_reserveDate($reservation_date) {
 
-            $this->load->model('Sample_model');
-            $response = $this->Sample_model->display_dev();
-            echo json_encode($response);
+            $startDate = date("Y-m-d H:i:s", strtotime($reservation_date));
+            $currDate = date("Y-m-d H:i:s");
+    
+            if($startDate < $currDate) {
+                $this->form_validation->set_message('validate_reserveDate', 'Please enter a valid date.');
+                return FALSE;
+            }
+    
+            return TRUE;
         }
+
     }
 ?>
