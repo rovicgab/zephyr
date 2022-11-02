@@ -91,8 +91,6 @@
 
             if(time() * 1000 >= $expiration) { //Error Handling
                 echo 'Token is expired';
-            } else {
-                echo json_encode($decoded_token);
             }
             return $token1;
         }
@@ -126,14 +124,14 @@
             header('Content-Type: application/json');
             $token = $this->decode_token();
             
-            if (isset($token)) {
+            
+            try {
+                $this->form_validation->set_rules('reservation_date', 'Reservation Date', 'required|callback_validate_reserveDate', array(
+                    'required' => 'Please set a %s'
+                ));
+                
+                if (isset($token)) {
 
-                try {
-                    $this->form_validation->set_rules('reservation_date', 'Reservation Date', 'required|callback_validate_reserveDate', array(
-                        'required' => 'Please set a %s'
-                    ));
-                    
-        
                     if ($this->form_validation->run() == FALSE) {
                         throw new \Exception('Please enter a valid date');
     
@@ -165,11 +163,12 @@
                         echo json_encode(['message' => TRUE ]);
     
                     }
+                }    
 
-                } catch(\Exception $error) {
-                    echo json_encode(['message' => $error->getMessage()]);
-                }
+            } catch(\Exception $error) {
+                echo json_encode(['message' => $error->getMessage()]);
             }
+        
     
         }
 
