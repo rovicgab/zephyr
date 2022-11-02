@@ -66,6 +66,37 @@
             echo json_encode($token);
         }
 
+        public function login_decode() { //Error Handling - status code(403)
+            $headers = apache_request_headers();
+            $token = $headers['Authorization'];
+            // echo json_encode($token);
+
+            $jwt = new JWT();
+            $JwtSecretKey = "DEVIN-Calibr8";
+            
+            $decoded_token = $jwt->decode($token, $JwtSecretKey, 'HS256');
+
+            //this will return std_object
+            // echo "<pre>";
+            // print_r($decoded_token);
+
+            //it will return JSON
+            $token1 = $jwt->jsonEncode($decoded_token);
+            // return $token1;
+
+            $value = json_decode(json_encode($decoded_token), true);
+            $expiration = $value['expiration'];
+            // echo json_encode($expiration);
+            // echo json_encode($decoded_token);
+
+            if(time() * 1000 >= $expiration) { //Error Handling
+                echo 'Token is expired';
+            } else {
+                echo json_encode($decoded_token);
+            }
+            return $token1;
+        }
+
         public function decode_token() { //Error Handling - status code(403)
             $headers = apache_request_headers();
             $token = $headers['Authorization'];
