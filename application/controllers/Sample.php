@@ -153,7 +153,7 @@
 
         public function set_reserveDate() {
             header('Content-Type: application/json');
-            $token = $this->decode_token();
+            $token = $this->input->post(decode_token());
             
             
             try {
