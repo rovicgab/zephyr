@@ -99,7 +99,8 @@
 
         public function decode_token() { //Error Handling - status code(403)
             $headers = apache_request_headers();
-            $token = $headers['Authorization'];
+			// change by rovic
+            $token = $this->input->post $headers['Authorization'];
             // echo json_encode($token);
 
             $jwt = new JWT();
